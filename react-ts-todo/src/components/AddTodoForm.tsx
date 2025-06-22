@@ -1,10 +1,10 @@
 import { useState } from "react"
+import type { AddTodoFormProps } from '../types'
+import styles from './AddTodoForm.module.css'
 
-type Props = {
- onAdd: (text: string) => void
-}
 
-function AddTodoForm({onAdd}: Props) {
+
+function AddTodoForm({onAdd}: AddTodoFormProps) {
  const [text, setText] = useState('')
 
  const handleSubmit = (e: React.FormEvent) => {
@@ -15,13 +15,13 @@ function AddTodoForm({onAdd}: Props) {
   }
  }
  return(
-  <form onSubmit={handleSubmit}>
+  <form className={styles.form} onSubmit={handleSubmit}>
    <input 
    type="text"
    placeholder="Что нужно сделать?"
    value={text}
    onChange={(e) => setText(e.target.value)} />
-   <button >Добавить</button>
+   <button className={styles.button}>Добавить</button>
   </form>
  )
 }

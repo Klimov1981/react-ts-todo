@@ -1,18 +1,14 @@
 import styles from './TodoItem.module.css'
 
-type Todo = {
- id: number
- text: string
- completed: boolean
-}
+import type {Todo, TodoListProps } from '../types'
 
-type Props = {
+type TodoItemProps = {
  todo: Todo
- onToggle: (id: number) => void
- onDelete: (id: number) => void
+ onToggle: TodoListProps['onToggle']
+ onDelete: TodoListProps['onDelete']
 }
 
-function TodoItem({ todo, onToggle, onDelete }: Props) {
+function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
  return (
   <div className={`${styles.todoItem} ${todo.completed ? styles.completed : ''}`}>
    <span onClick={() => onToggle(todo.id)} style={{ cursor: 'pointer' }}>

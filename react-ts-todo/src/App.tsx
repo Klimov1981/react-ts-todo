@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import TodoList from './components/TodoList';
 import AddTodoForm from './components/AddTodoForm';
+import type {Todo} from './types'
 
-type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
