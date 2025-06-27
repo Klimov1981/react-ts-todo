@@ -1,15 +1,21 @@
-import { useState } from 'react';
-import TodoList from './components/TodoList';
-import AddTodoForm from './components/AddTodoForm';
-import type {Todo} from './types'
+import React, { useState } from 'react'
+import TodoList from './components/TodoList'
+import AddTodoForm from './components/AddTodoForm'
+import type { Todo } from './types'
+import { saveTodos, loadTodos } from './utils/localStorage'
+import { initialTodos } from './data/initialTodos'
 
 
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, text: 'Позаниматься React', completed: false },
-    { id: 2, text: 'Вынести мусор', completed: true }
-  ]);
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    const saved = loadTodos();
+    return saved.length > 0 ? saved : initialTodos;
+  })
+
+  React.useEffect(() => {
+    saveTodos(todos)
+  }, [todos])
 
   const addTodo = (text: string) => {
     const newTodo = {
@@ -17,8 +23,9 @@ function App() {
       text,
       completed: false
     };
-    setTodos([...todos, newTodo]);
-  };
+    setTodos([...todos, newTodo])
+  }
+
 
   const toggleTodo = (id: number) => {
     setTodos(
